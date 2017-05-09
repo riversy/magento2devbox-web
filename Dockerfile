@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     wget \
     unzip \
+    bzip2 \
     cron \
     curl \
     libmcrypt-dev \
@@ -42,10 +43,9 @@ RUN apt-get update && apt-get install -y \
     && echo "xdebug.max_nesting_level=1000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && chmod 666 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && mkdir /var/run/sshd \
-    && apt-get clean && apt-get update && apt-get install -y nodejs \
-    && ln -s /usr/bin/nodejs /usr/bin/node \
-    && apt-get install -y npm \
-    && npm update -g npm && npm install -g grunt-cli && npm install -g gulp \
+    && curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
+    && apt-get install -y nodejs \
+    && npm install -g grunt-cli && npm install -g gulp \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
     && apt-get install -y apache2 \
     && a2enmod rewrite \
